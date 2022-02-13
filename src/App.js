@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+
+import React, { useState } from 'react';
 import './App.css';
 
+
 function App() {
+  const [inp, setInp] = useState('');
+  const [coun, setCoun] = useState('');
+
+  const search = (e) => {
+    // alert(`https://api.whatsapp.com/send/?phone=${inp}`)
+    window.open(`https://api.whatsapp.com/send/?phone=${coun}${inp}`);
+    // window.open(`https://wa.me/${coun}${inp}`, '_blank');
+    e.preventDefault();
+    setInp("");
+    setCoun("");
+    window.close(`https://api.whatsapp.com/send/?phone=${coun}${inp}&text&app_absent=0`);
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input type={Number} value={coun} onChange={(e) => setCoun(e.target.value)} required placeholder="Country Code" autoFocus />
+      </div>
+      <div>
+        <input type={Number} value={inp} onChange={(e) => setInp(e.target.value)} required placeholder="Contact Number" autoFocus />
+      </div>
+      <div>
+        <button onClick={search} >Start Chatting</button>
+      </div>
+
+
+      {/* {console.log(`https://api.whatsapp.com/send/?phone=${inp}`)} */}
+
+
     </div>
   );
+
+
 }
+
+
 
 export default App;
